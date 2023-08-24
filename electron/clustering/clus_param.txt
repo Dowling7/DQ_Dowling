@@ -1,0 +1,23 @@
+accuracy of finding energy seeds highlt depends on radius and minimal energy level, for a 10-100Gev electron, the params are: min_eng=4, radius=30.
+
+
+
+accuracy of finding energy seeds highlt depends on radius and minimal energy level, for a 10-100Gev A' to dielectron, the params are: min_eng=1, radius=50.
+
+For get rid of brim showered eats, we only need add one line of code, if number of high_energy_seeds>4 then recognize it as showered evt.
+
+def find_energy_seeds(x, y, energy, min_energy=4, seed_radius=30):
+    high_energy_mask =energy >min_energy
+    high_energy_points = np.column_stack((x[high_energy_mask], y[high_energy_mask], energy[high_energy_mask]))
+    seeds = []
+    indices = []
+    for i, (x_val, y_val, energy_val) in enumerate(high_energy_points):
+        distances = np.array(np.sqrt((high_energy_points[:, 0] - x_val)**2 + (high_energy_points[:, 1] - y_val)**2))
+        distances[i] = seed_radius + 1
+        points_within_radius_mask = distances < seed_radius
+        points_within_radius = high_energy_points[points_within_radius_mask]
+        if len(points_within_radius) == 0 or energy_val > np.max(points_within_radius[:, 2], initial=0):
+            seeds.append((x_val, y_val))
+            indices.append(np.where(high_energy_mask)[0][i])
+            
+    return seeds, indices
