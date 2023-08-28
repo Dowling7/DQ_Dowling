@@ -1,6 +1,0 @@
-kinit dwong@FNAL.GOV      
-klist
-ssh -KXY dwong@spinquestgpvm01.fnal.gov
-scp -rp dwong@spinquestgpvm01.fnal.gov:/seaquest/users/dwong/aprime_output/ /Users/wongdowling
-
- 

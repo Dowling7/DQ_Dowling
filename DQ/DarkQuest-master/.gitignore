@@ -1,9 +1,0 @@
-*~
-*.ipynb_checkpoints/
-*.DS_Store
-*.png
-*.root
-HepMC*
-lhe/bin/
-lhe/output/
-lhe/data/Aprime_*
