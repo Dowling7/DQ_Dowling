@@ -1,0 +1,28 @@
+format: jb-article
+root: README.md
+sections:
+- file: weeks/01.md
+- file: weeks/02.md
+  sections:
+  - file: weeks/02-dataset.ipynb
+- file: weeks/03.md
+  sections:
+  - file: weeks/03-features.ipynb
+- file: weeks/04.md
+  sections:
+  - file: weeks/04-simple-classifiers.ipynb
+- file: weeks/05.md
+  sections:
+  - file: weeks/05-deep-learning.ipynb
+  - file: weeks/05-jet-images.ipynb
+- file: weeks/06.md
+  sections:
+  - file: weeks/06-evaluate.ipynb
+- file: weeks/07.md
+  sections:
+  - file: weeks/07-objectives.ipynb
+- file: weeks/08.md
+  sections:
+  - file: weeks/08-extending.ipynb
+- file: weeks/09.md
+- file: zreferences.md

@@ -1,0 +1,32 @@
+# Book settings
+title: Particle Physics and Machine Learning
+author: Javier Duarte and Frank Würthwein
+logo: logo.png
+
+latex:
+  latex_documents:
+    targetname: book.tex
+
+repository:
+  url                       : https://github.com/jmduarte/capstone-particle-physics-domain
+  branch                    : master
+
+launch_buttons:
+  binderhub_url: "https://mybinder.org"
+  jupyterhub_url: "https://datahub.ucsd.edu"
+
+execute:
+  timeout: -1
+
+html:
+  favicon                   : ""  # A path to a favicon image
+  use_edit_page_button      : true  # Whether to add an "edit this page" button to pages. If `true`, repository information in repository: must be filled in
+  use_repository_button     : true  # Whether to add a link to your repository button
+  use_issues_button         : true  # Whether to add an "open an issue" button
+
+bibtex_bibfiles:
+  - references.bib
+
+sphinx:
+  config:
+    bibtex_reference_style: label
