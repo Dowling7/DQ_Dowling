@@ -1,0 +1,15 @@
+Currently made acluster-level data prepare for NN traning and recognizing.
+The line below is the pre-plain array for NN input:
+[wew_x, wew_y], [wid_x, wid_y], [seed_x, seed_y] [st23_x, st23_y, st23_z, st23_px, st23_py, st23_x], [boolean, h4_41, h4_42, h4_43, h4_44, h4_45, h4_46], [boolean, E/p]
+
+My strategy is to use EMCal as primary reference. Number of seeds determine how many particles we need to regognize. 
+Cluster seeds -> clustering -> extrapolation from st23 -> matchup -> use st23 xyzpxpypz extrapolate to h4 -> match up //st23 matchup with track, give E/p
+
+There's a few points to mention here:
+1. Clustering algorithm has problem, it pass number of energy seeds to Kmeans clustering, but kmeans is pure geometric. So seeds might be concentrated or null for some clusters, rare 1/5000. Plan to do a energy-weighted kmeans or just kmeans on given center(seeds) or we simply say, this is seed cone clustering tagging goups of each hit. 
+2. It's super common that a particle doesn't have all information, so just fill all [ ] with dummy variable before passing to neural network. Also added a boolean to notify NN what does this dummy variable means.
+3.For training the NN, currently generating single particle guns w/ eng 5~80GeV, also initial shooting position could also be different, might be a (random in circle, z) instead of (0,0,z) 
+4. Brem shower is pretty common, while A'ee sample has brem, we found there will be too many energy seeds, say it's meaningless to study, throw aways this. But finally should be handled.
+5. For later study, we train the model with electron that pz range from 5~80GeV, and testing with  I. 2particle gun with continuous distribution of momentum, give a performance plot TPR, FPR vs momentum. II. A'ee sample with different mass and epsilon. This gonna be hard, we have no truth value as reference and cannot specify momentum.
+6. For the two versions of particle discriminator, I don't think we need two versions, w/ track and w/o track. we could still use the big plain array, if empty just fill with dummy variable. Anyway, I will make these three versions. 
+7. For seed searching algorithm, min_eng=1, radius=50 only works for electron, dielectron, pion and kaon. Muon has very low energy catched by EMCal, the threshold need to be rescaled, seed searching algorithm need to be rewrite. 
