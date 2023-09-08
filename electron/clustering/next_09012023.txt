@@ -1,3 +1,4 @@
+---------------------------------------------Sep 4 2023---------------------------------------------------------------------------
 Currently made acluster-level data prepare for NN traning and recognizing.
 The line below is the pre-plain array for NN input:
 [wew_x, wew_y], [wid_x, wid_y], [seed_x, seed_y] [st23_x, st23_y, st23_z, st23_px, st23_py, st23_x], [boolean, h4_41, h4_42, h4_43, h4_44, h4_45, h4_46], [boolean, E/p]
@@ -12,4 +13,8 @@ There's a few points to mention here:
 4. Brem shower is pretty common, while A'ee sample has brem, we found there will be too many energy seeds, say it's meaningless to study, throw aways this. But finally should be handled.
 5. For later study, we train the model with electron that pz range from 5~80GeV, and testing with  I. 2particle gun with continuous distribution of momentum, give a performance plot TPR, FPR vs momentum. II. A'ee sample with different mass and epsilon. This gonna be hard, we have no truth value as reference and cannot specify momentum.
 6. For the two versions of particle discriminator, I don't think we need two versions, w/ track and w/o track. we could still use the big plain array, if empty just fill with dummy variable. Anyway, I will make these three versions. 
-7. For seed searching algorithm, min_eng=1, radius=50 only works for electron, dielectron, pion and kaon. Muon has very low energy catched by EMCal, the threshold need to be rescaled, seed searching algorithm need to be rewrite. 
+7. For seed searching algorithm, min_eng=1, radius=50 only works for electron, dielectron, pion and kaon. Muon has very low energy catched by EMCal, the threshold need to be rescaled, seed searching algorithm need to be rewrite.
+
+---------------------------------------------Sep 8 2023---------------------------------------------------------------------------
+
+8. For muon guns, or aprime to dimuon. Regular seed searching function doesn't hold, plan to do a post-analysis, after assigned, find hits inside circle of extrapolated center. sep 8 2023, made momentum 5-80GeV for training, make emplot for all kinds of particles, check patterns.
