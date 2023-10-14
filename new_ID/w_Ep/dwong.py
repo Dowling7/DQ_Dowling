@@ -37,7 +37,10 @@ def getData(fname="", procName="Events"):
             "z":   dq_dict["st23tracklet_z_st3"],
             "Cal_x": dq_dict["st23tracklet_x_CAL"],
             "Cal_y": dq_dict["st23tracklet_y_CAL"]
-        }
+        },
+        "gen":{
+            "pz": dq_dict["gpz"]
+        },
     }
 
     return dq_events
@@ -328,6 +331,7 @@ def prepare_data_evt(filename):
 
     dq_st23 = dq_events["st23"]
     dq_track = dq_events["track"]
+    gpz = dq_events["gen"]["pz"]
     trkls_coord = np.stack((dq_st23["x"], dq_st23["y"], dq_st23["z"], dq_st23["px"], dq_st23["py"], dq_st23["pz"]), axis=1)
     trkls_cal = np.stack((dq_st23["Cal_x"], dq_st23["Cal_y"]), axis=1)
     track_st3 = np.stack((dq_track["x"], dq_track["y"], dq_track["pz"]), axis=1)
@@ -380,7 +384,7 @@ def prepare_data_evt(filename):
                 cluster_info.append(np.full(13, -9999))
             evt_result.append(unfold_output(cluster_info))
         whole_tuple_result.append(evt_result)
-    return whole_tuple_result
+    return whole_tuple_result, gpz
 
 #--------------------------------------------------------------------------------------------------------------------------------------------
 
