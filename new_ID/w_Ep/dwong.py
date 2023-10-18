@@ -339,7 +339,7 @@ def prepare_data_evt(filename):
     for i in range(len(eng)):
         evt_result=[]
         if len(seeds[i])==0:
-            whole_tuple_result.append([np.full(19, -9999)])
+            whole_tuple_result.append([np.full(20, -9999)])
             continue
 
         trkl_coord = np.array(trkls_coord[i].tolist()).T
@@ -359,6 +359,7 @@ def prepare_data_evt(filename):
         for label in labels_decrease[i]:
             hits_mask = (labels[i] == label)
             cluster_info = [
+                gpz[i][0],
                 gen_wid(x[i][hits_mask], y[i][hits_mask]),
                 gen_wew(x[i][hits_mask], y[i][hits_mask], eng[i][hits_mask]),
                 seeds[i][seed_labels[i] == label]
@@ -384,7 +385,7 @@ def prepare_data_evt(filename):
                 cluster_info.append(np.full(13, -9999))
             evt_result.append(unfold_output(cluster_info))
         whole_tuple_result.append(evt_result)
-    return whole_tuple_result, gpz
+    return whole_tuple_result
 
 #--------------------------------------------------------------------------------------------------------------------------------------------
 

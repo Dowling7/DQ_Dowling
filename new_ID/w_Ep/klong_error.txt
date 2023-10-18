@@ -1,0 +1,3 @@
+
+Klong samples only has 5200 valid emcal samples out of 10,000evts
+And 4962 empty emcal entries.
