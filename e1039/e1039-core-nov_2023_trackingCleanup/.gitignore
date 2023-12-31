@@ -1,0 +1,12 @@
+
+/**/.vscode
+/**/*.root
+
+/.cproject
+/.project
+/.settings
+/**/*.cache
+
+build/*
+include/*
+lib/*
