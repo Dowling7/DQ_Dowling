@@ -86,7 +86,7 @@ def emcal_byevent(dq_hits, evtNum):
     emcal_mask = dq_hits["detID"][evtNum] == 100
     eng_mask = raw_edep[emcal_mask] >= emin
     
-    elmID = raw_elmID[emcal_mask][eng_mask]#could also use dstack here to zip (elmID and edep)
+    elmID = raw_elmID[emcal_mask][eng_mask]
     edep = raw_edep[emcal_mask][eng_mask]
     
     emcal_towerx = elmID // ntowersy
@@ -140,10 +140,11 @@ def multi_clusters(dq_events):
         try:
             warnings.simplefilter("ignore")
             kmeans = KMeans(n_clusters=len(seed), init=seed , random_state=0, max_iter=1).fit(points)
-            #since center given to grow, n_init==1
+            #one iteration to see if seed given doesn't match the emcal plot
             evt_seed_labels = kmeans.labels_[index]
 
-            if len(np.unique(evt_seed_labels))!= len(seed):#if rare case, iteration change center
+            #if rare case, iteration change center, I think here need to readjust parameters and rerun the clustering, instead of inheriting the new seed
+            if len(np.unique(evt_seed_labels))!= len(seed):
                 dup, mis = find_duplicate_missing(evt_seed_labels)
                 dp_indices = np.where(evt_seed_labels == dup)[0]
                 distances = np.linalg.norm(seed[dp_indices], axis=1)
@@ -356,8 +357,8 @@ def prepare_data_evt(filename):
                 cluster_info.append(np.full(13, -9999))
                 evt_result.append(unfold_output(cluster_info))
                 continue
-            #then if do have trkl, we matchup with cluster and track, to get E/p
 
+            #then if do have trkl, we matchup with cluster and track, to get E/p
             distances = np.linalg.norm(trkl_cal - cluster_info[3], axis=1)
             idx = distances.argmin()
 
@@ -371,6 +372,7 @@ def prepare_data_evt(filename):
                 trkl_cal = np.delete(trkl_cal, idx, axis=0)
             else:
                 cluster_info.append(np.full(13, -9999))
+            #here should check the if the tracklets all have been selected, if not, then append the closest point on emcal to the available tracklet
             evt_result.append(unfold_output(cluster_info))
         whole_tuple_result.append(evt_result)
     return whole_tuple_result
